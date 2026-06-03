@@ -9,6 +9,19 @@ A compact, interview-ready Healthcare AI Assistant demonstrating:
 
 This repository uses **synthetic healthcare content only** (see `data/`). It is intended for software demonstration and does **not** provide medical advice.
 
+## Dataset Details
+
+The knowledge base consists of synthetic healthcare documents:
+
+- appointment_scheduling_policy.txt
+- telehealth_policy.txt
+- medication_refill_policy.txt
+- insurance_eligibility_faq.txt
+- patient_discharge_instructions.txt
+- hipaa_privacy_guidelines.txt
+
+These documents were manually created for demonstration purposes and do not contain any real patient data, PHI, or confidential healthcare information.
+
 ## Project Overview
 
 The goal is to show an end-to-end RAG pipeline with a clean, modular Python codebase:
@@ -240,6 +253,22 @@ cp .env.example .env      # Linux/macOS
 | `CHUNK_OVERLAP` | No | `200` | Characters of overlap between consecutive chunks (preserves cross-chunk context) |
 | `CHROMA_DB_PATH` | No | `./chroma_db` | Directory where ChromaDB persists its vector index. Docker overrides this to `/app/chroma_db` |
 | `LOG_LEVEL` | No | `INFO` | Python logging level: `DEBUG`, `INFO`, `WARNING`, `ERROR` |
+
+## Logging & Error Handling
+
+The application includes:
+
+- Structured application logging using Python logging module
+- Request-level logging for ingestion and question-answering workflows
+- Validation of API inputs through Pydantic models
+- Graceful handling of:
+  - Missing documents
+  - Empty vector database
+  - OpenRouter API failures
+  - Invalid requests
+  - Missing environment variables
+
+Errors are returned with meaningful HTTP status codes and messages.
 
 ### Security notes
 
