@@ -1,0 +1,70 @@
+HIPAA-ALIGNED PRIVACY GUIDELINES (Synthetic Example)
+Version: 2026-06-02
+Applies To: Harborview Family & Urgent Care (HFUC) staff and systems (synthetic)
+
+IMPORTANT NOTE
+- This is synthetic training/test content. It is not legal advice.
+- HIPAA rules can be complex; consult compliance professionals for real policies.
+
+1) KEY CONCEPTS
+- PHI (Protected Health Information): health information that can identify a person.
+- Minimum Necessary: access/use/share only what you need to do your job.
+- Authorization: written permission from the patient for certain disclosures.
+
+2) PATIENT RIGHTS (HIGH LEVEL)
+Patients generally have the right to:
+- Request access to their medical records (with certain limitations)
+- Request corrections (amendments)
+- Receive an accounting of disclosures (for certain disclosure types)
+- Request restrictions on certain uses/disclosures (not always required to agree)
+- Choose how they are contacted (reasonable requests)
+
+3) PERMITTED USES/DISCLOSURES (COMMON EXAMPLES)
+- Treatment: sharing with other providers involved in care
+- Payment: billing, claims, eligibility verification
+- Health care operations: quality improvement, audits, training (as allowed)
+
+4) DISCLOSURES THAT TYPICALLY REQUIRE AUTHORIZATION
+- Marketing communications (with exceptions)
+- Release of records to third parties not involved in care/payment/operations
+- Certain non-routine disclosures not otherwise permitted by law
+
+5) SAFEGUARDS
+5.1 Administrative
+- Role-based access: staff access limited to their job function
+- Workforce training: annual privacy/security training
+- Incident reporting: immediate reporting of suspected breaches
+
+5.2 Physical
+- Locked storage areas for paper records
+- Screen privacy: lock screens when stepping away
+- Clean desk: avoid leaving PHI unattended
+
+5.3 Technical
+- Unique user IDs; strong passwords; MFA where available
+- Encryption in transit and at rest when supported
+- Audit logging for access to electronic records
+
+6) COMMUNICATION GUIDANCE
+- Phone: verify identity using at least two identifiers
+- Voicemail: keep messages minimal (no detailed diagnosis)
+- Email/text: use secure messaging when possible; inform patients of risks if not secure
+
+7) TELEHEALTH PRIVACY
+- Use HIPAA-aligned platforms when feasible.
+- Conduct visits from private locations.
+- Avoid recording sessions unless clinically necessary and authorized by policy.
+
+8) BREACH RESPONSE (SYNTHETIC WORKFLOW)
+- Step 1: Contain (disable accounts, retrieve mis-sent materials)
+- Step 2: Assess (what data, how many people, risk of harm)
+- Step 3: Notify compliance team and leadership
+- Step 4: Notify affected individuals as required
+- Step 5: Document and remediate
+
+9) EXAMPLES FOR RAG TESTING
+- “What does minimum necessary mean?” -> Limit access to job needs.
+- “Can we leave detailed lab results on voicemail?” -> Generally avoid; keep minimal.
+- “What are safeguards?” -> Administrative/physical/technical controls.
+
+END OF DOCUMENT

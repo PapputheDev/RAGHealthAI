@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    container_name: healthai-api
+    ports:
+      - "8000:8000"
+    environment:
+      # Persist ChromaDB under the mounted volume.
+      CHROMA_DB_PATH: /app/chroma_db
+      # Optional defaults; you can override in .env.
+      MODEL_NAME: meta-llama/llama-3.3-70b-instruct
+    env_file:
+      - .env
+    volumes:
+      - chroma_db:/app/chroma_db
+    restart: unless-stopped
+
+volumes:
+  chroma_db:

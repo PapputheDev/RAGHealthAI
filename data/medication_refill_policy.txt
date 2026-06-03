@@ -1,0 +1,62 @@
+MEDICATION REFILL POLICY (Synthetic Example)
+Version: 2026-06-02
+Clinic Name (Synthetic): Harborview Family & Urgent Care (HFUC)
+
+IMPORTANT NOTE
+- Synthetic content for RAG testing only.
+- Medication decisions require clinician judgment and patient-specific assessment.
+
+1) STANDARD REFILL TIMELINES
+- Routine refills: allow 2 business days.
+- Complex requests (dose changes, missing labs): 3–5 business days.
+- Weekend/holiday requests: processed next business day.
+
+2) HOW TO REQUEST A REFILL
+Preferred methods:
+- Patient portal refill request
+- Pharmacy electronic refill request
+Alternative:
+- Phone message with medication name, dose, and preferred pharmacy
+
+3) REQUIRED INFORMATION
+- Medication name and strength
+- Current dose and frequency
+- Preferred pharmacy (name + location)
+- Any new symptoms or side effects
+
+4) REFILL LIMITATIONS
+4.1 Controlled substances (synthetic policy)
+- HFUC generally does not refill controlled substances via portal messages.
+- May require an appointment (often in-person) and identity verification.
+- Early refill requests may be denied.
+
+4.2 High-risk medications
+- Some medications require recent labs or monitoring (e.g., kidney function tests).
+- Refills may be limited until monitoring is up to date.
+
+5) APPOINTMENT REQUIREMENTS
+- New medication requests typically require a visit.
+- Chronic meds may require periodic follow-up (e.g., every 6–12 months) to continue refills.
+
+6) EMERGENCY SUPPLY
+- HFUC may provide a limited emergency supply at clinician discretion.
+- Not guaranteed; not available for all medications.
+
+7) LOST OR STOLEN MEDICATION
+- Report to pharmacy and, if required, local authorities.
+- Replacement requests are evaluated case-by-case.
+
+8) PRESCRIPTION TRANSFERS
+- Contact your pharmacy to transfer prescriptions between locations when allowed.
+
+9) EXAMPLES FOR RAG TESTING
+Q: “How long do routine refills take?”
+A: Allow 2 business days.
+
+Q: “Can I request controlled substance refills through the portal?”
+A: Generally no; appointment/verification may be required.
+
+Q: “What info do I need for a refill request?”
+A: Name/strength, dose, pharmacy, side effects.
+
+END OF DOCUMENT

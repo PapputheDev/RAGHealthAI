@@ -1,0 +1,60 @@
+INSURANCE FAQ (Synthetic Example)
+Version: 2026-06-02
+Clinic Name (Synthetic): Harborview Family & Urgent Care (HFUC)
+
+IMPORTANT NOTE
+- Synthetic content for RAG testing only.
+- Always verify benefits directly with your insurance plan.
+
+1) QUICK DEFINITIONS
+- Copay: fixed amount due at visit (e.g., $30)
+- Deductible: amount you pay before insurance starts paying
+- Coinsurance: percentage you pay after deductible (e.g., 20%)
+- In-network: clinic has a contract with your insurer
+- Out-of-network: may cost more and may not be covered
+
+2) COMMON QUESTIONS
+Q: Do you accept insurance?
+A: HFUC accepts many PPO/HMO plans, but coverage varies. We recommend confirming in-network status.
+
+Q: What do I need to bring?
+A: Photo ID, insurance card, and current medication list.
+
+Q: What if my insurance information changes?
+A: Update it in the portal before your visit or at check-in.
+
+Q: Do you offer self-pay pricing?
+A: Yes. See Appointment Policy for sample self-pay rates.
+
+Q: Can you estimate my cost?
+A: We can provide a non-binding estimate based on typical codes, but final patient responsibility depends on your plan.
+
+3) TELEHEALTH COVERAGE
+Q: Is telehealth covered?
+A: Many plans cover video/phone visits; some apply a different copay than in-person visits.
+
+Q: Does my deductible apply to telehealth?
+A: Often yes, depending on plan design.
+
+4) REFERRALS AND AUTHORIZATIONS
+Q: Do I need a referral to see a specialist?
+A: Some HMO plans require a referral from your PCP.
+
+Q: How long do authorizations take?
+A: Commonly 7–14 days, but this varies by payer and service.
+
+5) BILLING AND CLAIMS (Synthetic)
+- Claims are typically submitted within 5 business days.
+- Patient statements may arrive after insurance processing.
+- If insurance denies a claim, you may receive a bill; you can request a review.
+
+6) PAYMENT OPTIONS
+- Credit/debit, HSA/FSA cards.
+- Payment plans may be available for balances over $250 (synthetic policy).
+
+7) EXAMPLES FOR RAG TESTING
+- “My plan is out-of-network. What happens?” -> Higher patient responsibility; verify coverage.
+- “I have an HMO. Do I need a referral?” -> Possibly yes.
+- “Why did I get a bill weeks later?” -> Insurance processing timelines.
+
+END OF DOCUMENT

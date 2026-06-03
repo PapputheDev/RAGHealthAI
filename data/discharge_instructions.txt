@@ -1,0 +1,62 @@
+DISCHARGE INSTRUCTIONS (Synthetic Example)
+Version: 2026-06-02
+Clinic Name (Synthetic): Harborview Family & Urgent Care (HFUC)
+
+IMPORTANT NOTE
+- Synthetic content for RAG testing only.
+- These are general educational instructions and not individualized medical advice.
+- If symptoms worsen or you feel unsafe, seek urgent or emergency care.
+
+1) GENERAL POST-VISIT CARE
+- Rest and hydrate.
+- Follow the clinician’s instructions and medication labels.
+- Avoid driving/operating heavy machinery if taking sedating medications.
+- Keep a list of medications and allergies up to date.
+
+2) WHEN TO SEEK URGENT CARE OR EMERGENCY HELP
+Seek immediate care for:
+- Chest pain, severe shortness of breath, fainting, new confusion
+- Severe allergic reaction: swelling of face/lips/tongue, trouble breathing
+- Uncontrolled bleeding
+- Signs of stroke: facial droop, arm weakness, speech difficulty
+
+3) COMMON CONDITIONS (GENERAL GUIDANCE)
+3.1 Viral upper respiratory infection (URI)
+- Typical duration: several days to ~2 weeks.
+- Supportive care: fluids, rest, humidifier.
+- Return/seek care if: persistent high fever, worsening shortness of breath, dehydration.
+
+3.2 Gastroenteritis (stomach bug)
+- Focus on hydration: small sips frequently.
+- Return/seek care if: blood in stool, severe abdominal pain, inability to keep fluids down.
+
+3.3 Minor musculoskeletal strain
+- Rest, gradual return to activity.
+- Ice for first 24–48 hours, then heat if helpful.
+- Return/seek care if: severe pain, numbness/weakness, visible deformity.
+
+4) MEDICATION SAFETY REMINDERS
+- Take medications exactly as directed.
+- Do not share prescriptions.
+- Check for duplicate ingredients (e.g., acetaminophen in multiple products).
+- Contact your clinician or pharmacist if you have side effects.
+
+5) FOLLOW-UP INSTRUCTIONS (SYNTHETIC)
+- Follow up with primary care in 7–14 days if symptoms persist.
+- Lab/imaging results are typically released to the portal within 1–3 business days.
+
+6) RETURN TO WORK/SCHOOL (GENERAL)
+- Return when fever-free for 24 hours without fever-reducing medications and symptoms are improving.
+- Follow employer/school policies.
+
+7) CONTACT INFORMATION (SYNTHETIC)
+- Clinic phone: (555) 010-1000
+- Nurse line (after hours): (555) 010-1001
+- Portal messaging: available for non-urgent questions
+
+8) EXAMPLES FOR RAG TESTING
+- “What are emergency warning signs after discharge?” -> chest pain, shortness of breath, stroke signs.
+- “How long do lab results take?” -> 1–3 business days.
+- “When can I return to work after a fever?” -> 24 hours fever-free.
+
+END OF DOCUMENT

@@ -1,0 +1,86 @@
+TELEHEALTH POLICY (Synthetic Example)
+Version: 2026-06-02
+Clinic Name (Synthetic): Harborview Family & Urgent Care (HFUC)
+Applies To: Video and phone visits for primary care and urgent care concerns
+
+IMPORTANT NOTE
+- This document is synthetic and for software/RAG testing only.
+- It does not replace medical advice. In an emergency, call local emergency services.
+
+1) ELIGIBILITY AND SCOPE
+1.1 Appropriate for telehealth
+- Minor acute symptoms: cold/flu-like symptoms, mild sore throat, seasonal allergies
+- Skin concerns: rashes (non-emergency), acne follow-up, eczema flares
+- Chronic condition follow-up: blood pressure check-ins, diabetes education follow-up (non-urgent)
+- Lab result review, medication counseling (non-controlled substances)
+- Mental health check-ins (non-crisis)
+
+1.2 Not appropriate for telehealth (require in-person evaluation)
+- Chest pain, severe shortness of breath, fainting, confusion, stroke-like symptoms
+- Severe abdominal pain, uncontrolled bleeding, suspected fracture with deformity
+- High fever with stiff neck, severe dehydration, or infant < 3 months with fever
+- Any concern that requires hands-on exam, procedure, imaging, or immediate vitals
+
+2) VISIT MODALITIES
+2.1 Video visit (preferred)
+- Requires camera-enabled device and stable internet.
+- Patient must be physically located in a state where HFUC clinicians are licensed.
+
+2.2 Phone visit
+- Used when video is not possible.
+- May be limited for issues requiring visual inspection.
+
+3) CONSENT AND IDENTITY
+- Patient must provide verbal consent at visit start.
+- Clinician may request two identifiers (e.g., full name + date of birth).
+- For minors: a parent/guardian must participate unless legally allowed otherwise.
+
+4) PRIVACY AND ENVIRONMENT
+- Patients should join from a private location.
+- Avoid public Wi‑Fi when possible.
+- HFUC uses a HIPAA-aligned telehealth platform when feasible; if a fallback is needed (e.g., phone), limitations are explained.
+
+5) SCHEDULING AND CHECK-IN
+- Arrive (log in) 5 minutes early.
+- Complete eCheck-in forms: symptoms, medication list, allergies, pharmacy preference.
+- Upload photos when requested (e.g., rash). Use good lighting and include a size reference (coin or ruler).
+
+6) CLINICAL LIMITATIONS
+- Telehealth is based on information available at the time.
+- Clinicians may convert to in-person evaluation if needed.
+- Prescriptions may be limited by clinical judgment, legal requirements, and safety.
+
+7) PRESCRIBING RULES
+7.1 General
+- No guarantee of prescription issuance.
+- Antibiotics: prescribed only when clinically appropriate.
+
+7.2 Controlled substances
+- HFUC does not initiate new long-term controlled substances via telehealth.
+- For refills of existing controlled meds, an in-person visit may be required.
+
+8) DOCUMENTATION AND FOLLOW-UP
+- Visit summary is provided within 24 hours.
+- If symptoms worsen, patient should seek in-person care.
+
+9) FEES AND BILLING (Synthetic)
+- Telehealth copays/deductibles depend on insurance plan.
+- Self-pay rates:
+  - Video visit (15–20 min): $85
+  - Phone visit (10–15 min): $65
+- No-show fee: $25 (waived for documented technical failures).
+
+10) TECHNICAL REQUIREMENTS & SUPPORT
+- Recommended: Chrome/Edge browser, updated OS.
+- Troubleshooting steps:
+  1) Switch networks
+  2) Reconnect audio/video
+  3) Use phone backup line
+- Support (synthetic): helpdesk@hfuc.example | (555) 010-2000
+
+11) EXAMPLES FOR RAG TESTING (SCENARIOS)
+- “I have a rash and can upload photos; can I do telehealth?” -> Yes, likely.
+- “I feel chest tightness and can’t catch my breath” -> Not appropriate; emergency evaluation.
+- “Can I get my blood pressure medication refilled via video?” -> Often yes if stable, per refill policy.
+
+END OF DOCUMENT

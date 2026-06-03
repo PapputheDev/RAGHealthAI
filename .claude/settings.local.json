@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(pip *)",
+      "PowerShell(curl *)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(Invoke-RestMethod -Uri \"http://localhost:8000/health\" -Method GET | ConvertTo-Json)",
+      "PowerShell(Invoke-RestMethod -Uri \"http://localhost:8001/health\" -Method GET | ConvertTo-Json)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\VedantPawar\\\\Desktop\\\\HealthAI-main\" -Recurse -Force)",
+      "Bash(Select-Object -Property FullName)",
+      "Bash(ConvertTo-Csv -NoTypeInformation)",
+      "Bash(Out-String)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\VedantPawar\\\\Desktop\\\\HealthAI-main\" -Recurse -Force | Where-Object { $_.Attributes -ne \"Directory\" } | Select-Object -Property FullName | ForEach-Object { $_.FullName })",
+      "Bash(grep -E \"\\\\.py$\")",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\VedantPawar\\\\Desktop\\\\HealthAI-main\" -Name | Where-Object { -not $_.StartsWith\\('.'\\) -and -not $_.StartsWith\\('LICENSE'\\) })",
+      "Bash(pip --version)",
+      "Bash(.venv\\\\Scripts\\\\python.exe -c \"import fastapi, chromadb, sentence_transformers, openai, langchain_text_splitters, aiofiles; print\\('All core deps OK'\\)\")",
+      "Bash(.venv/Scripts/python.exe -c ' *)"
+    ]
+  }
+}

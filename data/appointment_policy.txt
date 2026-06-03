@@ -1,0 +1,71 @@
+APPOINTMENT POLICY (Synthetic Example)
+Version: 2026-06-02
+Clinic Name (Synthetic): Harborview Family & Urgent Care (HFUC)
+
+IMPORTANT NOTE
+- This document is synthetic and for software/RAG testing only.
+
+1) APPOINTMENT TYPES
+- New patient visit: 30–40 minutes
+- Established patient visit: 15–20 minutes
+- Annual wellness exam: 40 minutes
+- Urgent same-day visit: 10–15 minutes
+- Telehealth video/phone: varies (see Telehealth Policy)
+
+2) HOW TO SCHEDULE
+- Online portal (preferred) or phone.
+- Patients may be asked to select a reason for visit to match the right appointment length.
+
+3) CHECK-IN REQUIREMENTS
+- Arrive 10 minutes early for in-person appointments.
+- Bring a government ID and insurance card.
+- Update: medication list, allergies, pharmacy, emergency contact.
+
+4) LATE ARRIVAL POLICY
+- Grace period: 10 minutes.
+- If > 10 minutes late, the visit may be rescheduled depending on schedule capacity.
+- If the clinician can still see the patient, the visit may be shortened.
+
+5) CANCELLATIONS AND NO-SHOWS
+- Cancel/reschedule at least 24 hours in advance.
+- No-show definition: missing the appointment without notice, or arriving > 15 minutes late.
+- No-show fee (synthetic): $25.
+- After 3 no-shows within 12 months, online scheduling may be disabled and future appointments may require a deposit.
+
+6) SAME-DAY AND URGENT VISITS
+- Same-day visits are limited and triaged by symptom severity.
+- Severe symptoms may be directed to emergency services.
+
+7) WAIT TIMES AND VISIT FLOW
+- Patients may experience delays due to urgent clinical needs.
+- HFUC will provide updates if delays exceed 20 minutes.
+
+8) ACCOMPANYING VISITORS
+- Adults: 1 support person allowed unless space restrictions apply.
+- Pediatrics: parent/guardian required.
+- Infection control: visitors may be asked to wear masks during respiratory illness season.
+
+9) FORMS, REFERRALS, AND PRIOR AUTHORIZATIONS
+- Routine forms: allow 3–5 business days.
+- Disability/FMLA forms: may require an appointment.
+- Prior authorizations: timelines depend on payer; allow 7–14 days.
+
+10) PAYMENT POLICY (Synthetic)
+- Copays due at check-in.
+- Self-pay rates:
+  - Office visit (established): $120
+  - New patient: $170
+  - Annual wellness: $210
+- Payment methods: credit/debit, HSA/FSA.
+
+11) EXAMPLES FOR RAG TESTING
+Q: “What happens if I’m 12 minutes late?”
+A: Visit may be rescheduled; if seen, may be shortened.
+
+Q: “How far in advance must I cancel to avoid the fee?”
+A: At least 24 hours.
+
+Q: “Can I bring a family member with me?”
+A: Usually one support person.
+
+END OF DOCUMENT
