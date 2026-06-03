@@ -290,7 +290,7 @@ uvicorn app.main:app --reload
 
 Swagger UI:
 
-- http://localhost:8000/docs
+- (http://127.0.0.1:8000/)
 
 ### Endpoints
 
