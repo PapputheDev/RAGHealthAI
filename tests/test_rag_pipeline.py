@@ -6,7 +6,7 @@ returns the insufficient-context fallback.
 """
 import app.rag as rag
 from app.prompts import INSUFFICIENT_CONTEXT_MESSAGE
-from tests.conftest import make_result
+from tests.factories import make_result
 
 
 def _patch(monkeypatch, results, answer="A real, grounded answer."):

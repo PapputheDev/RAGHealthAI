@@ -31,4 +31,4 @@ jobs:
         env:
           # Dummy key so config validation passes; tests never call the real LLM.
           OPENROUTER_API_KEY: ci-test-key
-        run: pytest -q
+        run: python -m pytest -q

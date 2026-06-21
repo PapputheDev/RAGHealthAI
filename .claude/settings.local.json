@@ -22,7 +22,17 @@
       "PowerShell(python -m py_compile app/memory.py app/models.py app/main.py)",
       "PowerShell(python -c \"import app.memory as m; m.save_turn\\('conv-test','What is the no-show fee?','The no-show fee is \\\\$25.', owner_id='owner-test'\\); m.save_turn\\('conv-test','And cancellations?','Cancel 24h ahead.', owner_id='owner-test'\\); print\\('seeded:', m.list_conversations\\('owner-test'\\)\\)\")",
       "PowerShell(python -m eval.run)",
-      "PowerShell(python -m pytest -q 2>&1)"
+      "PowerShell(python -m pytest -q 2>&1)",
+      "Bash(git rev-list *)",
+      "Bash(gh run *)",
+      "Bash(curl -s \"https://api.github.com/repos/PapputheDev/RAGHealthAI/actions/runs?per_page=3\")",
+      "Bash(curl -s \"https://api.github.com/repos/PapputheDev/RAGHealthAI/actions/runs/27913422174/jobs\")",
+      "Read(//c/tmp/**)",
+      "Bash(curl -sL \"https://api.github.com/repos/PapputheDev/RAGHealthAI/actions/runs/27913422174/jobs\")",
+      "Bash(curl -sL -w \"HTTP %{http_code}\\\\n\" \"https://api.github.com/repos/PapputheDev/RAGHealthAI/actions/jobs/82594389778/logs\" -o /tmp/cilog.txt)",
+      "Read(//tmp/**)",
+      "Bash(curl -s \"https://api.github.com/repos/PapputheDev/RAGHealthAI/check-runs/82594389778/annotations\")",
+      "PowerShell(pytest -q 2>&1)"
     ]
   }
 }

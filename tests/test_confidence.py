@@ -14,7 +14,7 @@ from app.rag import (
     _similarity_from_distance,
 )
 from app.prompts import INSUFFICIENT_CONTEXT_MESSAGE
-from tests.conftest import make_result
+from tests.factories import make_result
 
 
 @pytest.mark.parametrize("distance,expected", [
