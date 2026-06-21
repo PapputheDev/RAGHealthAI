@@ -31,8 +31,15 @@ class Settings(BaseSettings):
 		validate_default=True,
 	)
 
+	# Aliases keep environment variable names conventional while exposing
+	# Pythonic attribute names to the application code.
 	openrouter_api_key: str = Field(..., alias="OPENROUTER_API_KEY")
 	model_name: str = Field("meta-llama/llama-3.3-70b-instruct", alias="MODEL_NAME")
+
+	# Optional shared API key gating the HTTP API. When unset (the default),
+	# authentication is disabled so local/demo use needs no extra config. When
+	# set, callers must send a matching `X-API-Key` header.
+	app_api_key: Optional[str] = Field(None, alias="APP_API_KEY")
 
 	chunk_size: int = Field(800, alias="CHUNK_SIZE", ge=1)
 	chunk_overlap: int = Field(200, alias="CHUNK_OVERLAP", ge=0)
@@ -83,6 +90,8 @@ def load_environment(dotenv_path: Optional[PathLike] = None) -> bool:
 	Returns True if a dotenv file was found and loaded.
 	"""
 
+	# Do not override existing environment variables; deployed environments
+	# should win over local .env values.
 	loaded = load_dotenv(dotenv_path=dotenv_path, override=False)
 	if loaded:
 		logger.debug("Loaded environment variables from .env")
@@ -99,6 +108,8 @@ def get_settings(dotenv_path: Optional[PathLike] = None) -> Settings:
 		pydantic.ValidationError: if required variables are missing/invalid.
 	"""
 
+	# Settings are cached so request handlers do not repeatedly parse and
+	# validate the environment.
 	load_environment(dotenv_path)
 	try:
 		settings = Settings()  # reads from environment
@@ -114,4 +125,3 @@ def get_settings(dotenv_path: Optional[PathLike] = None) -> Settings:
 		str(settings.chroma_db_path),
 	)
 	return settings
-

@@ -13,20 +13,22 @@ from app.rag import _build_context, _confidence_label, _extract_sources, _simila
 # ---------------------------------------------------------------------------
 
 class TestSimilarityFromDistance:
+    # Chroma's default "l2" space returns SQUARED euclidean distance, which for
+    # normalized embeddings equals 2 - 2*cosine. So similarity = 1 - dist/2.
     def test_zero_distance_is_max_similarity(self):
         assert _similarity_from_distance(0.0) == 1.0
 
-    def test_one_distance_is_zero_similarity(self):
-        assert _similarity_from_distance(1.0) == 0.0
+    def test_distance_two_is_zero_similarity(self):
+        assert _similarity_from_distance(2.0) == 0.0
 
     def test_mid_distance(self):
-        assert abs(_similarity_from_distance(0.4) - 0.6) < 1e-9
+        assert abs(_similarity_from_distance(0.4) - 0.8) < 1e-9
 
     def test_clamped_above_one(self):
         assert _similarity_from_distance(-0.5) == 1.0
 
     def test_clamped_below_zero(self):
-        assert _similarity_from_distance(1.5) == 0.0
+        assert _similarity_from_distance(2.5) == 0.0   # 1 - 1.25 -> clamped to 0
 
     def test_invalid_input_returns_zero(self):
         assert _similarity_from_distance("bad") == 0.0  # type: ignore[arg-type]

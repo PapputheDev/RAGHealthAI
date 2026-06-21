@@ -30,6 +30,8 @@ def _get_model():
 		) from exc
 
 	logger.info("Loading embedding model: %s", MODEL_NAME)
+	# Loading SentenceTransformers is relatively expensive, so the cached helper
+	# keeps one model instance alive for the process.
 	model = SentenceTransformer(MODEL_NAME)
 	return model
 
@@ -56,6 +58,8 @@ def get_embedding(text: str) -> List[float]:
 		normalize_embeddings=True,
 		show_progress_bar=False,
 	)[0]
+	# Convert numpy values to plain Python floats so Chroma and JSON tooling can
+	# consume them without numpy-specific serialization issues.
 	return vector.astype(float).tolist()
 
 
@@ -90,5 +94,5 @@ def get_embeddings(texts: Sequence[str]) -> List[List[float]]:
 		normalize_embeddings=True,
 		show_progress_bar=False,
 	)
+	# Match the single-embedding path by returning serializable Python lists.
 	return [vec.astype(float).tolist() for vec in vectors]
-

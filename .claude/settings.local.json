@@ -15,7 +15,14 @@
       "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\VedantPawar\\\\Desktop\\\\HealthAI-main\" -Name | Where-Object { -not $_.StartsWith\\('.'\\) -and -not $_.StartsWith\\('LICENSE'\\) })",
       "Bash(pip --version)",
       "Bash(.venv\\\\Scripts\\\\python.exe -c \"import fastapi, chromadb, sentence_transformers, openai, langchain_text_splitters, aiofiles; print\\('All core deps OK'\\)\")",
-      "Bash(.venv/Scripts/python.exe -c ' *)"
+      "Bash(.venv/Scripts/python.exe -c ' *)",
+      "PowerShell(python -m py_compile app/memory.py app/rag.py app/vector_store.py app/models.py app/main.py app/agent.py)",
+      "PowerShell(if \\($?\\) { \"COMPILE OK\" })",
+      "Bash(python -m py_compile app/config.py app/main.py)",
+      "PowerShell(python -m py_compile app/memory.py app/models.py app/main.py)",
+      "PowerShell(python -c \"import app.memory as m; m.save_turn\\('conv-test','What is the no-show fee?','The no-show fee is \\\\$25.', owner_id='owner-test'\\); m.save_turn\\('conv-test','And cancellations?','Cancel 24h ahead.', owner_id='owner-test'\\); print\\('seeded:', m.list_conversations\\('owner-test'\\)\\)\")",
+      "PowerShell(python -m eval.run)",
+      "PowerShell(python -m pytest -q 2>&1)"
     ]
   }
 }

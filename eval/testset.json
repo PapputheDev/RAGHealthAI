@@ -1,0 +1,159 @@
+{
+  "description": "Labeled evaluation set for the HealthAI RAG pipeline. Each case maps a question to the source document(s) that should be retrieved, plus optional answer keywords. 'should_answer': false marks out-of-scope questions the assistant should refuse (abstain on).",
+  "cases": [
+    {
+      "id": "appt-noshow-fee",
+      "question": "What is the no-show fee?",
+      "expected_sources": ["appointment_policy.txt"],
+      "expected_keywords": ["25"],
+      "should_answer": true
+    },
+    {
+      "id": "appt-cancel-window",
+      "question": "How far in advance do I need to cancel to avoid a fee?",
+      "expected_sources": ["appointment_policy.txt"],
+      "expected_keywords": ["24 hours"],
+      "should_answer": true
+    },
+    {
+      "id": "appt-late",
+      "question": "What happens if I arrive 12 minutes late to my appointment?",
+      "expected_sources": ["appointment_policy.txt"],
+      "expected_keywords": ["reschedul"],
+      "should_answer": true
+    },
+    {
+      "id": "appt-checkin",
+      "question": "What should I bring when I check in for an in-person visit?",
+      "expected_sources": ["appointment_policy.txt"],
+      "expected_keywords": ["ID", "insurance"],
+      "should_answer": true
+    },
+    {
+      "id": "refill-routine-time",
+      "question": "How long do routine medication refills take?",
+      "expected_sources": ["medication_refill_policy.txt"],
+      "expected_keywords": ["2 business days"],
+      "should_answer": true
+    },
+    {
+      "id": "refill-controlled",
+      "question": "Can I request controlled substance refills through the portal?",
+      "expected_sources": ["medication_refill_policy.txt"],
+      "expected_keywords": ["appointment"],
+      "should_answer": true
+    },
+    {
+      "id": "refill-info-needed",
+      "question": "What information do I need to provide for a refill request?",
+      "expected_sources": ["medication_refill_policy.txt"],
+      "expected_keywords": ["pharmacy", "dose"],
+      "should_answer": true
+    },
+    {
+      "id": "tele-eligible-rash",
+      "question": "I have a rash and can upload photos. Is telehealth appropriate?",
+      "expected_sources": ["telehealth_policy.txt"],
+      "expected_keywords": ["photo"],
+      "should_answer": true
+    },
+    {
+      "id": "tele-not-appropriate",
+      "question": "Is a telehealth visit appropriate for chest pain and shortness of breath?",
+      "expected_sources": ["telehealth_policy.txt"],
+      "expected_keywords": ["in-person", "emergency"],
+      "should_answer": true
+    },
+    {
+      "id": "tele-identity",
+      "question": "What identity verification is required for a telehealth visit?",
+      "expected_sources": ["telehealth_policy.txt"],
+      "expected_keywords": ["consent", "identifiers"],
+      "should_answer": true
+    },
+    {
+      "id": "ins-what-to-bring",
+      "question": "What do I need to bring for insurance at my visit?",
+      "expected_sources": ["insurance_faq.txt", "appointment_policy.txt"],
+      "expected_keywords": ["insurance card", "ID"],
+      "should_answer": true
+    },
+    {
+      "id": "ins-referral",
+      "question": "Do I need a referral to see a specialist?",
+      "expected_sources": ["insurance_faq.txt"],
+      "expected_keywords": ["HMO", "referral"],
+      "should_answer": true
+    },
+    {
+      "id": "ins-info-change",
+      "question": "What should I do if my insurance information changes?",
+      "expected_sources": ["insurance_faq.txt"],
+      "expected_keywords": ["portal"],
+      "should_answer": true
+    },
+    {
+      "id": "hipaa-rights",
+      "question": "What are my rights regarding my medical records under HIPAA?",
+      "expected_sources": ["hipaa_guidelines.txt"],
+      "expected_keywords": ["access", "records"],
+      "should_answer": true
+    },
+    {
+      "id": "hipaa-min-necessary",
+      "question": "What does the minimum necessary rule mean?",
+      "expected_sources": ["hipaa_guidelines.txt"],
+      "expected_keywords": ["job", "need"],
+      "should_answer": true
+    },
+    {
+      "id": "discharge-warning-signs",
+      "question": "What are emergency warning signs I should watch for after discharge?",
+      "expected_sources": ["discharge_instructions.txt"],
+      "expected_keywords": ["chest pain", "stroke"],
+      "should_answer": true
+    },
+    {
+      "id": "discharge-lab-results",
+      "question": "How long do lab and imaging results take to appear in the portal?",
+      "expected_sources": ["discharge_instructions.txt"],
+      "expected_keywords": ["1", "3 business days"],
+      "should_answer": true
+    },
+    {
+      "id": "discharge-return-work",
+      "question": "When can I return to work after having a fever?",
+      "expected_sources": ["discharge_instructions.txt"],
+      "expected_keywords": ["24 hours", "fever"],
+      "should_answer": true
+    },
+    {
+      "id": "oos-car",
+      "question": "I want to buy a car. Which model should I choose?",
+      "expected_sources": [],
+      "expected_keywords": [],
+      "should_answer": false
+    },
+    {
+      "id": "oos-weather",
+      "question": "What is the weather forecast for tomorrow?",
+      "expected_sources": [],
+      "expected_keywords": [],
+      "should_answer": false
+    },
+    {
+      "id": "oos-stocks",
+      "question": "Which stocks should I invest in this year?",
+      "expected_sources": [],
+      "expected_keywords": [],
+      "should_answer": false
+    },
+    {
+      "id": "oos-recipe",
+      "question": "Can you give me a recipe for a chocolate cake?",
+      "expected_sources": [],
+      "expected_keywords": [],
+      "should_answer": false
+    }
+  ]
+}

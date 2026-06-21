@@ -9,6 +9,9 @@ env/
 # Vector DB data
 chroma_db/
 
+# Conversation memory store
+memory.db
+
 # Python cache
 __pycache__/
 *.py[cod]

@@ -25,6 +25,8 @@ class SearchResult(TypedDict):
 
 @lru_cache(maxsize=1)
 def _get_client() -> chromadb.ClientAPI:
+	# Cache the persistent client so repeated requests reuse the same ChromaDB
+	# connection and storage path.
 	settings = get_settings()
 	path = str(settings.chroma_db_path)
 	logger.info("Initializing ChromaDB persistent client path=%s", path)
@@ -74,6 +76,8 @@ def add_documents(
 	doc_metadatas = list(metadatas) if metadatas is not None else [{} for _ in cleaned]
 
 	logger.info("Embedding and adding %d documents to collection=%s", len(cleaned), COLLECTION_NAME)
+	# Embeddings are generated before upsert because this collection stores
+	# explicit vectors rather than relying on Chroma's default embedding function.
 	vectors = get_embeddings(cleaned)
 
 	collection = _get_collection()
@@ -115,6 +119,8 @@ def search_documents(query: str, *, n_results: int = 5) -> List[SearchResult]:
 		include=["documents", "metadatas", "distances"],
 	)
 
+	# Chroma returns nested lists because it supports batching multiple queries.
+	# This app sends one query at a time, so we read the first result set.
 	ids = (result.get("ids") or [[]])[0]
 	docs = (result.get("documents") or [[]])[0]
 	metas = (result.get("metadatas") or [[]])[0]
@@ -131,6 +137,52 @@ def search_documents(query: str, *, n_results: int = 5) -> List[SearchResult]:
 			}
 		)
 	return out
+
+
+def list_sources() -> List[Dict[str, Any]]:
+	"""Return the distinct source documents in the collection with chunk counts.
+
+	Powers the document-management UI so users can see what's indexed and remove
+	individual documents.
+	"""
+
+	collection = _get_collection()
+	# Pull only metadata (no documents/embeddings) to keep this cheap even when
+	# the collection is large.
+	result = collection.get(include=["metadatas"])
+	metas = result.get("metadatas") or []
+
+	counts: Dict[str, int] = {}
+	for meta in metas:
+		source = str((meta or {}).get("source", "unknown"))
+		counts[source] = counts.get(source, 0) + 1
+
+	sources = [{"document": name, "chunks": n} for name, n in sorted(counts.items())]
+	logger.info("Listed %d distinct source documents", len(sources))
+	return sources
+
+
+def delete_by_source(source: str) -> int:
+	"""Delete every chunk belonging to a given source document.
+
+	Returns the number of chunks removed.
+	"""
+
+	if not isinstance(source, str) or not source.strip():
+		raise ValueError("source must be a non-empty string")
+
+	collection = _get_collection()
+	# Count first so we can report how many chunks were removed; Chroma's delete
+	# does not return a count.
+	existing = collection.get(where={"source": source}, include=[])
+	removed = len((existing.get("ids") or []))
+	if removed == 0:
+		logger.info("No chunks found for source=%s — nothing to delete", source)
+		return 0
+
+	collection.delete(where={"source": source})
+	logger.info("Deleted %d chunks for source=%s", removed, source)
+	return removed
 
 
 def count_documents() -> int:
@@ -154,4 +206,3 @@ def delete_collection() -> None:
 	client = _get_client()
 	logger.warning("Deleting collection=%s", COLLECTION_NAME)
 	client.delete_collection(name=COLLECTION_NAME)
-

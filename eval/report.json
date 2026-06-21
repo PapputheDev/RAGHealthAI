@@ -1,0 +1,325 @@
+{
+  "generated_at": "2026-06-21T23:16:12",
+  "k": 3,
+  "mode": "retrieval-only",
+  "summary": {
+    "cases_total": 22,
+    "answerable": 18,
+    "out_of_scope": 4,
+    "retrieval": {
+      "hit_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 0.9722222222222222
+    }
+  },
+  "cases": [
+    {
+      "id": "appt-noshow-fee",
+      "question": "What is the no-show fee?",
+      "should_answer": true,
+      "expected_sources": [
+        "appointment_policy.txt"
+      ],
+      "retrieved_sources": [
+        "appointment_policy.txt",
+        "telehealth_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "appt-cancel-window",
+      "question": "How far in advance do I need to cancel to avoid a fee?",
+      "should_answer": true,
+      "expected_sources": [
+        "appointment_policy.txt"
+      ],
+      "retrieved_sources": [
+        "appointment_policy.txt",
+        "telehealth_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "appt-late",
+      "question": "What happens if I arrive 12 minutes late to my appointment?",
+      "should_answer": true,
+      "expected_sources": [
+        "appointment_policy.txt"
+      ],
+      "retrieved_sources": [
+        "appointment_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "appt-checkin",
+      "question": "What should I bring when I check in for an in-person visit?",
+      "should_answer": true,
+      "expected_sources": [
+        "appointment_policy.txt"
+      ],
+      "retrieved_sources": [
+        "appointment_policy.txt",
+        "insurance_faq.txt",
+        "discharge_instructions.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "refill-routine-time",
+      "question": "How long do routine medication refills take?",
+      "should_answer": true,
+      "expected_sources": [
+        "medication_refill_policy.txt"
+      ],
+      "retrieved_sources": [
+        "medication_refill_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "refill-controlled",
+      "question": "Can I request controlled substance refills through the portal?",
+      "should_answer": true,
+      "expected_sources": [
+        "medication_refill_policy.txt"
+      ],
+      "retrieved_sources": [
+        "medication_refill_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "refill-info-needed",
+      "question": "What information do I need to provide for a refill request?",
+      "should_answer": true,
+      "expected_sources": [
+        "medication_refill_policy.txt"
+      ],
+      "retrieved_sources": [
+        "medication_refill_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "tele-eligible-rash",
+      "question": "I have a rash and can upload photos. Is telehealth appropriate?",
+      "should_answer": true,
+      "expected_sources": [
+        "telehealth_policy.txt"
+      ],
+      "retrieved_sources": [
+        "telehealth_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "tele-not-appropriate",
+      "question": "Is a telehealth visit appropriate for chest pain and shortness of breath?",
+      "should_answer": true,
+      "expected_sources": [
+        "telehealth_policy.txt"
+      ],
+      "retrieved_sources": [
+        "telehealth_policy.txt",
+        "discharge_instructions.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "tele-identity",
+      "question": "What identity verification is required for a telehealth visit?",
+      "should_answer": true,
+      "expected_sources": [
+        "telehealth_policy.txt"
+      ],
+      "retrieved_sources": [
+        "hipaa_guidelines.txt",
+        "telehealth_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "ins-what-to-bring",
+      "question": "What do I need to bring for insurance at my visit?",
+      "should_answer": true,
+      "expected_sources": [
+        "insurance_faq.txt",
+        "appointment_policy.txt"
+      ],
+      "retrieved_sources": [
+        "insurance_faq.txt",
+        "appointment_policy.txt",
+        "discharge_instructions.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "ins-referral",
+      "question": "Do I need a referral to see a specialist?",
+      "should_answer": true,
+      "expected_sources": [
+        "insurance_faq.txt"
+      ],
+      "retrieved_sources": [
+        "insurance_faq.txt",
+        "medication_refill_policy.txt",
+        "appointment_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "ins-info-change",
+      "question": "What should I do if my insurance information changes?",
+      "should_answer": true,
+      "expected_sources": [
+        "insurance_faq.txt"
+      ],
+      "retrieved_sources": [
+        "insurance_faq.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "hipaa-rights",
+      "question": "What are my rights regarding my medical records under HIPAA?",
+      "should_answer": true,
+      "expected_sources": [
+        "hipaa_guidelines.txt"
+      ],
+      "retrieved_sources": [
+        "hipaa_guidelines.txt",
+        "telehealth_policy.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "hipaa-min-necessary",
+      "question": "What does the minimum necessary rule mean?",
+      "should_answer": true,
+      "expected_sources": [
+        "hipaa_guidelines.txt"
+      ],
+      "retrieved_sources": [
+        "hipaa_guidelines.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "discharge-warning-signs",
+      "question": "What are emergency warning signs I should watch for after discharge?",
+      "should_answer": true,
+      "expected_sources": [
+        "discharge_instructions.txt"
+      ],
+      "retrieved_sources": [
+        "discharge_instructions.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "discharge-lab-results",
+      "question": "How long do lab and imaging results take to appear in the portal?",
+      "should_answer": true,
+      "expected_sources": [
+        "discharge_instructions.txt"
+      ],
+      "retrieved_sources": [
+        "discharge_instructions.txt",
+        "medication_refill_policy.txt",
+        "insurance_faq.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "discharge-return-work",
+      "question": "When can I return to work after having a fever?",
+      "should_answer": true,
+      "expected_sources": [
+        "discharge_instructions.txt"
+      ],
+      "retrieved_sources": [
+        "discharge_instructions.txt"
+      ],
+      "hit": 1.0,
+      "recall": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "oos-car",
+      "question": "I want to buy a car. Which model should I choose?",
+      "should_answer": false,
+      "expected_sources": [],
+      "retrieved_sources": [
+        "AyushUIUX.pdf",
+        "insurance_faq.txt"
+      ]
+    },
+    {
+      "id": "oos-weather",
+      "question": "What is the weather forecast for tomorrow?",
+      "should_answer": false,
+      "expected_sources": [],
+      "retrieved_sources": [
+        "discharge_instructions.txt",
+        "telehealth_policy.txt"
+      ]
+    },
+    {
+      "id": "oos-stocks",
+      "question": "Which stocks should I invest in this year?",
+      "should_answer": false,
+      "expected_sources": [],
+      "retrieved_sources": [
+        "AyushUIUX.pdf",
+        "insurance_faq.txt",
+        "discharge_instructions.txt"
+      ]
+    },
+    {
+      "id": "oos-recipe",
+      "question": "Can you give me a recipe for a chocolate cake?",
+      "should_answer": false,
+      "expected_sources": [],
+      "retrieved_sources": [
+        "medication_refill_policy.txt",
+        "appointment_policy.txt",
+        "insurance_faq.txt"
+      ]
+    }
+  ]
+}

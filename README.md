@@ -1,5 +1,7 @@
 # HealthAI — Healthcare AI Assistant (RAG + OpenRouter)
 
+[![CI](https://github.com/PapputheDev/RAGHealthAI/actions/workflows/ci.yml/badge.svg)](https://github.com/PapputheDev/RAGHealthAI/actions/workflows/ci.yml)
+
 A compact, interview-ready Healthcare AI Assistant demonstrating:
 
 - Synthetic healthcare knowledge base ingestion (TXT → chunks → embeddings)

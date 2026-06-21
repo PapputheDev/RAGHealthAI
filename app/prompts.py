@@ -6,6 +6,8 @@ INSUFFICIENT_CONTEXT_MESSAGE: Final[str] = (
     "I could not find this information in the provided documents."
 )
 
+# The system prompt is intentionally strict because this app demonstrates RAG:
+# the model should answer from retrieved documents, not from its general memory.
 SYSTEM_PROMPT: Final[str] = f"""You are a Healthcare Policy & Information Assistant.
 
 You must follow these rules strictly:
@@ -41,7 +43,13 @@ def build_rag_messages(
     message omits the CONTEXT block so the LLM answers from history only.
     """
     messages: List[Dict[str, str]] = [{"role": "system", "content": SYSTEM_PROMPT}]
+
+    # Keep prior turns in the standard OpenAI chat format so follow-up questions
+    # can refer back to earlier user/assistant messages.
     messages.extend(history)
+
+    # Only include a CONTEXT block when retrieval found relevant documents.
+    # This prevents an empty context header from confusing follow-up handling.
     content = (
         f"CONTEXT:\n{context}\n\nQUESTION:\n{question}"
         if context.strip()

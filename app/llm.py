@@ -34,6 +34,8 @@ def _safe_preview(text: str, limit: int = 200) -> str:
 
 
 def build_openrouter_client(config: LLMConfig) -> OpenAI:
+    # OpenRouter exposes an OpenAI-compatible API, so the official OpenAI client
+    # can be pointed at OpenRouter's base URL.
     timeout = httpx.Timeout(
         timeout=config.timeout_seconds,
         connect=min(10.0, config.timeout_seconds),
@@ -61,6 +63,8 @@ def _default_config() -> LLMConfig:
     retry=retry_if_exception_type((APIConnectionError, APITimeoutError)),
 )
 def _call_llm(client: OpenAI, model: str, messages: List[Dict[str, str]]) -> str:
+    # Retry only transient connection/timeout errors. API status and rate-limit
+    # failures are handled by generate_answer and returned as LLMError.
     logger.debug("Calling LLM model=%s", model)
     response = client.chat.completions.create(
         model=model,
@@ -86,6 +90,8 @@ def _call_llm_stream(
         stream=True,
     )
     for chunk in stream:
+        # Some stream chunks carry metadata only; emit text when delta content is
+        # actually present.
         if chunk.choices and chunk.choices[0].delta.content:
             yield chunk.choices[0].delta.content
 
@@ -99,6 +105,8 @@ def generate_answer(
     llm_config = config or _default_config()
     client = build_openrouter_client(llm_config)
     try:
+        # The caller supplies a full messages list so prompt construction stays
+        # centralized in app/prompts.py.
         answer = _call_llm(client, llm_config.model, messages)
     except (RateLimitError, APIConnectionError, APITimeoutError, APIStatusError, httpx.HTTPError) as exc:
         logger.exception("LLM request failed model=%s", llm_config.model)

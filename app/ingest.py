@@ -35,6 +35,8 @@ def _default_data_dir() -> Path:
 
 
 def _read_text_files(data_dir: Path) -> List[Tuple[Path, str]]:
+	# Only bundled .txt files are read by the default ingestion path. PDF support
+	# is handled separately for uploaded files.
 	if not data_dir.exists() or not data_dir.is_dir():
 		raise FileNotFoundError(f"data directory not found: {data_dir}")
 
@@ -66,6 +68,8 @@ def _chunk_documents(
 	chunk_size: int = CHUNK_SIZE,
 	chunk_overlap: int = CHUNK_OVERLAP,
 ) -> Tuple[List[str], List[Dict[str, Any]], List[str]]:
+	# LangChain's recursive splitter tries larger separators first, which helps
+	# keep paragraphs and sentences together when possible.
 	try:
 		from langchain_text_splitters import RecursiveCharacterTextSplitter
 	except Exception as exc:  # pragma: no cover
@@ -93,6 +97,8 @@ def _chunk_documents(
 			texts.append(chunk_text)
 			metadatas.append(
 				{
+					# Metadata is stored with every vector and later becomes
+					# source information in RAG answers.
 					"source": file_path.name,
 					"chunk_index": idx,
 					"chunk_size": chunk_size,
@@ -137,6 +143,8 @@ def ingest(data_dir: Optional[PathLike] = None) -> Dict[str, Any]:
 	)
 
 	documents_added = add_documents(texts, metadatas=metadatas, ids=ids)
+	# Stable IDs make repeated ingestion idempotent because Chroma upserts the
+	# same file/chunk pair instead of creating duplicates.
 	stats = IngestStats(
 		data_dir=str(target_dir),
 		collection_name=COLLECTION_NAME,
@@ -163,6 +171,8 @@ def ingest_file_list(paths: Sequence[Path]) -> Dict[str, Any]:
 	for path in paths:
 		ext = path.suffix.lower()
 		try:
+			# Upload ingestion supports PDFs by extracting page text before
+			# sending it through the same chunking and embedding pipeline.
 			if ext == ".pdf":
 				text = _extract_pdf_text(path)
 			else:
@@ -217,4 +227,3 @@ if __name__ == "__main__":
 	)
 	result = ingest()
 	print(result)
-

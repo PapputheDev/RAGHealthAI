@@ -21,6 +21,8 @@ APPOINTMENT_KEYWORDS = (
     "see a doctor",
 )
 
+# Short conversational inputs should not trigger retrieval, because they are not
+# policy questions and would usually produce low-quality semantic matches.
 _GREETINGS = {
     "hi", "hello", "hey", "hiya", "howdy", "yo",
     "good morning", "good afternoon", "good evening",
@@ -45,6 +47,8 @@ def _is_greeting(question: str) -> bool:
     return len(words) <= 3 and bool(words & _GREETINGS)
 
 _DEPARTMENT_MAP: dict[str, list[str]] = {
+    # Simple keyword mapping used by the mock appointment tool. This keeps the
+    # demo deterministic without requiring an external scheduling service.
     "cardiology":      ["cardiology", "cardiologist", "heart", "cardiac"],
     "dermatology":     ["dermatology", "dermatologist", "skin"],
     "orthopedics":     ["orthopedics", "orthopedic", "bone", "joint", "fracture"],
@@ -60,6 +64,8 @@ _MODALITY_KEYWORDS = {
 
 
 def _needs_appointment_tool(question: str) -> bool:
+    # Keyword routing is intentionally lightweight: appointment-like phrasing
+    # goes to the mock tool, everything else goes through RAG.
     q = question.lower()
     return any(keyword in q for keyword in APPOINTMENT_KEYWORDS)
 
@@ -100,6 +106,8 @@ def appointment_tool(
     clinician_type: str = "primary_care",
     modality: str = "video",
 ) -> Dict[str, Any]:
+    # Synthetic slot generation for demo purposes. A production version would
+    # call a scheduling system and enforce real availability rules.
     base_day = preferred_date or (date.today() + timedelta(days=1))
     start_time = datetime.combine(base_day, datetime.min.time()).replace(hour=9, minute=0)
     slots = [
@@ -140,6 +148,8 @@ def handle_question(
         raise ValueError("question must be a non-empty string")
 
     if _is_greeting(question):
+        # Return a local canned answer so greetings do not consume retrieval or
+        # LLM calls.
         logger.info("Routing to greeting handler")
         return {
             "route": "rag",
@@ -148,6 +158,7 @@ def handle_question(
         }
 
     if _needs_appointment_tool(question):
+        # Appointment questions bypass RAG and use structured synthetic slots.
         department = _extract_department(question)
         modality = _extract_modality(question)
         logger.info("Routing to appointment tool department=%s modality=%s", department, modality)
@@ -155,6 +166,7 @@ def handle_question(
         return {"route": "appointment_tool", "input": {"question": question}, "result": tool_result}
 
     logger.info("Routing to RAG")
+    # Policy and FAQ-style questions use retrieval plus LLM generation.
     rag_result = answer_question(question, history=history or [])
     return {"route": "rag", "input": {"question": question}, "result": rag_result}
 
