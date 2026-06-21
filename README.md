@@ -4,23 +4,31 @@
 
 A compact, interview-ready Healthcare AI Assistant demonstrating:
 
-- Synthetic healthcare knowledge base ingestion (TXT → chunks → embeddings)
+- Synthetic healthcare knowledge base ingestion (TXT/PDF → chunks → embeddings)
 - Persistent local vector search using ChromaDB
 - Retrieval-Augmented Generation (RAG) using OpenRouter (`meta-llama/llama-3.3-70b-instruct`)
+- **Token-by-token streaming** answers over Server-Sent Events
 - A simple “agent router” that sends scheduling-related questions to a mock appointment tool
+- **Calibrated confidence scoring** with a retrieval relevance floor (skips the LLM and abstains on weak matches)
+- **Persistent multi-conversation chat history** (SQLite) with a ChatGPT-style sidebar
+- **Document management** (upload, list, delete) and optional shared-key API auth
+- A **RAG evaluation harness** (Hit@k / MRR / Recall@k, plus optional LLM-judged faithfulness & relevance)
+- **109-test pytest suite + GitHub Actions CI**
 
 This repository uses **synthetic healthcare content only** (see `data/`). It is intended for software demonstration and does **not** provide medical advice.
+
+> **What's new in this iteration** — see [Recent Enhancements](#recent-enhancements) for a summary of everything added on top of the original RAG demo.
 
 ## Dataset Details
 
 The knowledge base consists of synthetic healthcare documents:
 
-- appointment_scheduling_policy.txt
+- appointment_policy.txt
 - telehealth_policy.txt
 - medication_refill_policy.txt
-- insurance_eligibility_faq.txt
-- patient_discharge_instructions.txt
-- hipaa_privacy_guidelines.txt
+- insurance_faq.txt
+- discharge_instructions.txt
+- hipaa_guidelines.txt
 
 These documents were manually created for demonstration purposes and do not contain any real patient data, PHI, or confidential healthcare information.
 
@@ -31,6 +39,21 @@ The goal is to show an end-to-end RAG pipeline with a clean, modular Python code
 - **Ingestion**: read `.txt` docs → chunk → embed → store in ChromaDB
 - **Retrieval**: embed query → top-k semantic search
 - **Generation**: build a strict “context-only” prompt → call OpenRouter Llama → return answer + sources + confidence
+
+## Recent Enhancements
+
+Built on top of the original RAG demo:
+
+| Area | What was added |
+|---|---|
+| **Retrieval quality** | Fixed the distance→similarity math (squared-L2 → cosine) so confidence is calibrated; added a **relevance floor** that skips the LLM and abstains when the best match is too weak; sources are dropped when the model abstains |
+| **Evaluation** | A reproducible **eval harness** with a labeled test set — Hit@k / MRR / Recall@k (no LLM) plus optional LLM-judged faithfulness & relevance, with JSON/Markdown reports |
+| **Testing & CI** | **109 pytest cases** (mocked, deterministic) + **GitHub Actions CI** on Python 3.11/3.12 |
+| **Chat history** | **Persistent multi-conversation memory** in SQLite with a ChatGPT-style sidebar (list, open, delete, restore-on-reload) |
+| **Streaming** | Token-by-token answers over Server-Sent Events |
+| **Documents** | Upload (TXT/PDF) + drag-and-drop, list, and delete indexed documents via API and UI |
+| **Security** | Optional shared-key API auth (`APP_API_KEY`) gating all non-trivial endpoints |
+| **UX** | Rebuilt single-page UI: sidebar layout, suggestion cards, inline-SVG icons, persistent safety disclaimer, numeric confidence display |
 
 ## Technology Choices
 
@@ -250,6 +273,7 @@ cp .env.example .env      # Linux/macOS
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `OPENROUTER_API_KEY` | **Yes** | — | OpenRouter API key for LLM calls. Get one free at openrouter.ai |
+| `APP_API_KEY` | No | _(unset)_ | If set, the API requires a matching `X-API-Key` header. Leave unset to disable auth for local/demo use |
 | `MODEL_NAME` | No | `meta-llama/llama-3.3-70b-instruct` | OpenRouter model ID to use for generation |
 | `CHUNK_SIZE` | No | `800` | Max characters per document chunk during ingestion |
 | `CHUNK_OVERLAP` | No | `200` | Characters of overlap between consecutive chunks (preserves cross-chunk context) |
@@ -325,9 +349,21 @@ Swagger UI:
 
 ### Endpoints
 
-- `GET /health`
-- `POST /ingest`
-- `POST /ask`
+| Method & path | Purpose |
+|---|---|
+| `GET /health` | Liveness + vector-store status and indexed-chunk count |
+| `POST /ingest` | (Re)ingest the bundled `data/` knowledge base |
+| `POST /upload` | Upload and index `.txt` / `.pdf` documents |
+| `POST /ask` | Ask a question (non-streaming) → answer + sources + confidence + score |
+| `POST /ask/stream` | Ask a question (streaming SSE, token by token) |
+| `GET /documents` | List indexed documents with chunk counts |
+| `DELETE /documents/{name}` | Remove a document's chunks (and its data file) |
+| `GET /conversations?owner_id=…` | List a user's saved conversations |
+| `GET /conversations/{id}/messages` | Full message history for a conversation |
+| `DELETE /conversations/{id}` | Delete a saved conversation |
+| `POST /session/clear` | Clear a conversation's stored messages |
+
+All non-trivial endpoints are gated by an **optional** shared API key — set `APP_API_KEY` to require an `X-API-Key` header; leave it unset (default) to keep auth off for local/demo use.
 
 ### API Examples
 
@@ -361,31 +397,50 @@ curl -X POST http://localhost:8000/ask \
 
 ## Web UI
 
-A chat-style frontend is served automatically at `http://localhost:8000/` when the API is running.
+A modern, single-page chat app is served automatically at `http://localhost:8000/` when the API is running.
 
 Features:
-- Chat interface with user/AI message bubbles
-- Example question chips (click to fill the input)
-- **Ingest Docs** button runs `/ingest` and shows a toast with chunk stats
-- Each AI response shows a **route badge** (RAG or Appointment Tool) and a **confidence badge** (High/Medium/Low)
-- Sources are shown with document name and excerpt beneath each answer
-- Typing animation while waiting for a response
+- Sidebar + top-bar layout with a centered welcome screen and suggestion cards
+- **ChatGPT-style chat history**: recent conversations in the sidebar — click to reopen, delete individually; the current chat is restored on reload
+- **New Chat** starts a fresh thread; old threads stay saved
+- **Streaming responses** rendered token by token with a blinking cursor
+- Each AI response shows a **route badge** (RAG / Appointment Tool) and a **confidence badge** (High/Medium/Low) with the numeric retrieval score
+- **Sources** shown with document name + excerpt — automatically hidden when the answer isn't grounded in the documents
+- **Upload** and drag-and-drop documents; a **Manage Docs** modal to list and delete indexed files
+- Persistent "not medical advice" disclaimer; clean inline-SVG icons; Plus Jakarta Sans / Sora typography
 
 No separate build step — the UI is a single HTML file (`static/index.html`) served by FastAPI.
 
-## Local Smoke Tests
+## Testing
 
-OpenRouter connectivity test (prints one response):
-
-```bash
-python .\tests\openrouter_smoke.py
-```
-
-Retrieval test (no LLM calls; prints top 3 chunks + scores + sources):
+A `pytest` suite (**109 tests**) covers the core logic — confidence math, the retrieval
+relevance floor, source-dropping on abstention, the agent router, SQLite conversation
+storage, Pydantic models, prompt assembly, and the eval metrics. Retrieval and the LLM are
+**mocked**, so the suite is deterministic and runs in ~2 seconds with no API key or model
+download.
 
 ```bash
-python .\tests\retrieval_smoke.py
+python -m pytest
 ```
+
+[GitHub Actions CI](.github/workflows/ci.yml) runs the suite on every push/PR across
+Python 3.11 and 3.12 (see the badge at the top).
+
+## Evaluation
+
+RAG quality is **measured**, not guessed. The [`eval/`](eval/) harness scores the pipeline
+against a labeled test set and separates cheap, LLM-free retrieval metrics from optional
+generation metrics:
+
+```bash
+python -m eval.run                  # Hit@k / MRR / Recall@k  (no LLM, free)
+python -m eval.run --with-generation # + answer rate, keyword coverage, abstention accuracy
+python -m eval.run --judge           # + LLM-judged faithfulness & relevance
+```
+
+Each run prints a report and writes `eval/report.json` / `eval/report.md`. Current
+retrieval baseline on the bundled set: **Hit@k 100% · Recall@k 100% · MRR 0.97**. See
+[eval/README.md](eval/README.md) for what each metric means.
 
 ## Docker Usage
 
@@ -408,27 +463,28 @@ Persistent vector DB:
 
 ## Future Improvements
 
+Done in this iteration: ✅ CI + tests · ✅ evaluation harness · ✅ confidence calibration + relevance floor · ✅ basic API-key auth · ✅ persistent conversation memory · ✅ streaming.
+
 Engineering / reliability:
 
-- Add CI (lint, type-check, tests), and structured logging (JSON)
-- Add request IDs + tracing (OpenTelemetry)
-- Add rate limiting and authentication (API key/JWT)
+- Structured (JSON) logging, request IDs + tracing (OpenTelemetry)
+- Rate limiting and full multi-user auth (JWT / per-user document isolation)
 
 RAG quality:
 
+- Add hybrid search (BM25 + embeddings) and a cross-encoder reranker — the eval harness already flags an identity-question ranking weakness to target
 - Store richer `SourceReference` details (chunk_index + score) end-to-end
-- Better confidence calibration and threshold-based “insufficient context” behavior
-- Add hybrid search (BM25 + embeddings) and metadata filters
-- Add evaluation harness (golden Q/A set + regression tests)
+- Inline citation markers linked to highlighted source passages
 
 Safety & compliance (real-world):
 
 - Formal HIPAA risk assessment and privacy/security controls
-- Separate PHI from vector indexes, and implement retention + access policies
+- PII/PHI detection + redaction on uploads; retention + access policies
 - Human-in-the-loop escalation and clinically reviewed content
 
 Product:
 
 - Replace the mock appointment tool with a real scheduling integration
-- Add conversation memory with strict PHI-safe handling
+- Answer feedback (👍/👎) feeding an analytics + improvement loop
+- Containerized live deployment with a public demo URL
 
